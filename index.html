@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>boboti orlik klopa laki — Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Vodní animované pozadí -->
+  <div class="water-background">
+    <div class="water-layer water-layer-1"></div>
+    <div class="water-layer water-layer-2"></div>
+    <div class="water-layer water-layer-3"></div>
+    <div class="water-shimmer"></div>
+    <canvas id="water-canvas"></canvas>
+  </div>
+
+  <div class="page-container">
+    <header class="header">
+      <h1 class="header-title">boboti orlik klopa laki</h1>
+    </header>
+
+    <main class="game-container">
+      <div class="pexeso-grid" id="pexesoGrid">
+        <!-- 4 karty pexesa uspořádané 2x2 -->
+        <div class="card" data-index="0" role="button" tabindex="0" aria-label="Karta 1">
+          <div class="card-inner">
+            <div class="card-back">
+              <div class="card-pattern">
+                <span class="water-drop-icon">✦</span>
+              </div>
+            </div>
+            <div class="card-front">
+              <img src="assets/images/6653E145-74F9-42DA-8BE0-B043F9D90681.JPG" alt="Fotografie 1" loading="eager">
+            </div>
+          </div>
+        </div>
+
+        <div class="card" data-index="1" role="button" tabindex="0" aria-label="Karta 2">
+          <div class="card-inner">
+            <div class="card-back">
+              <div class="card-pattern">
+                <span class="water-drop-icon">✦</span>
+              </div>
+            </div>
+            <div class="card-front">
+              <img src="assets/images/IMG_3046.jpeg" alt="Fotografie 2" loading="eager">
+            </div>
+          </div>
+        </div>
+
+        <div class="card" data-index="2" role="button" tabindex="0" aria-label="Karta 3">
+          <div class="card-inner">
+            <div class="card-back">
+              <div class="card-pattern">
+                <span class="water-drop-icon">✦</span>
+              </div>
+            </div>
+            <div class="card-front">
+              <img src="assets/images/IMG_3128.jpeg" alt="Fotografie 3" loading="eager">
+            </div>
+          </div>
+        </div>
+
+        <div class="card" data-index="3" role="button" tabindex="0" aria-label="Karta 4">
+          <div class="card-inner">
+            <div class="card-back">
+              <div class="card-pattern">
+                <span class="water-drop-icon">✦</span>
+              </div>
+            </div>
+            <div class="card-front">
+              <img src="assets/images/IMG_3249.jpeg" alt="Fotografie 4" loading="eager">
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
