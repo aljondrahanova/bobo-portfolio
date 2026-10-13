@@ -1,37 +1,109 @@
 // Logika interaktivního pexesa a vodního efektu
 document.addEventListener('DOMContentLoaded', () => {
   const cards = document.querySelectorAll('.card');
+  const matchBanner = document.getElementById('matchBanner');
+  const resetWrapper = document.getElementById('resetWrapper');
+  const resetBtn = document.getElementById('resetBtn');
+
   let flippedCards = [];
   let isLocked = false;
-  let resetTimeout = null;
+  let matchedCount = 0;
 
   // Obsluha kliknutí na kartu
   function handleCardClick(card) {
-    // Pokud je hra uzamčena (odhalují se 2 karty), karta je již otočená nebo je neplatná
+    // Pokud je hra uzamčena, karta je již otočená, nebo již odplavala
     if (isLocked) return;
     if (flippedCards.includes(card)) return;
     if (card.classList.contains('is-flipped')) return;
+    if (card.classList.contains('float-left') || card.classList.contains('float-right')) return;
 
-    // Otočení karty
+    // Otočení vybrané karty
     card.classList.add('is-flipped');
     flippedCards.push(card);
 
     // Pokud jsou odhaleny 2 karty
     if (flippedCards.length === 2) {
-      // Uzamknout možnost klikání na další karty (max 2 odhalené karty)
       isLocked = true;
+      const [card1, card2] = flippedCards;
+      const pair1 = card1.dataset.pair;
+      const pair2 = card2.dataset.pair;
 
-      // Po přesně 3 sekundách otočit obě karty zpět
-      resetTimeout = setTimeout(() => {
-        flippedCards.forEach(c => c.classList.remove('is-flipped'));
+      // Ověření, zda je pár správně uhodnutý (cat 1 + cat 2 NEBO dogs 1 + dogs 2)
+      if (pair1 && pair1 === pair2) {
+        // 1. Karty se rozsvítí modře
+        card1.classList.add('glow-blue');
+        card2.classList.add('glow-blue');
 
-        // Po dokončení animace otočení (650ms) odemknout hru pro další odhalování
+        // 2. Nahoře na stránce se zobrazí "matched :3" po dobu co obrázky svítí modře
+        if (matchBanner) {
+          matchBanner.classList.add('show');
+        }
+
+        // 3. Svítí modře po dobu 2 sekund
         setTimeout(() => {
+          // Skrytí nápisu matched :3
+          if (matchBanner) {
+            matchBanner.classList.remove('show');
+          }
+
+          // Odstranění modrého svícení
+          card1.classList.remove('glow-blue');
+          card2.classList.remove('glow-blue');
+
+          // 4. Obrázky odplavou:
+          // Cat combo odplave do levé strany stránky
+          // Dogs combo odplave do pravé strany stránky
+          if (pair1 === 'cat') {
+            card1.classList.add('float-left');
+            card2.classList.add('float-left');
+          } else if (pair1 === 'dog') {
+            card1.classList.add('float-right');
+            card2.classList.add('float-right');
+          }
+
+          matchedCount += 2;
           flippedCards = [];
-          isLocked = false;
-        }, 650);
-      }, 3000);
+
+          // Po dokončení odplavání uvolnit zámek pro další odhalování
+          setTimeout(() => {
+            isLocked = false;
+
+            // Pokud jsou všechny karty uhádnuté, zobrazit možnost restartu
+            if (matchedCount === cards.length && resetWrapper) {
+              resetWrapper.classList.add('show');
+            }
+          }, 1200);
+        }, 2000);
+
+      } else {
+        // Neshoda (např. 1 kočka a 1 pes) -> po 3 sekundách se otočí zpět
+        setTimeout(() => {
+          flippedCards.forEach(c => c.classList.remove('is-flipped'));
+
+          setTimeout(() => {
+            flippedCards = [];
+            isLocked = false;
+          }, 650);
+        }, 3000);
+      }
     }
+  }
+
+  // Restart hry pro opakované hraní
+  function resetGame() {
+    if (isLocked) return;
+    matchedCount = 0;
+    flippedCards = [];
+    if (matchBanner) matchBanner.classList.remove('show');
+    if (resetWrapper) resetWrapper.classList.remove('show');
+
+    cards.forEach(card => {
+      card.classList.remove('is-flipped', 'glow-blue', 'float-left', 'float-right');
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', resetGame);
   }
 
   // Přiřazení posluchačů událostí na karty
@@ -48,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Jemný organický efekt vody na plátně (Canvas water caustics / ripples)
+  // Organický efekt vody na plátně (Canvas water ripples & caustics)
   const canvas = document.getElementById('water-canvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -70,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function drawWater() {
       ctx.clearRect(0, 0, width, height);
 
-      // Kreslení jemných tekutých světelných vln
       for (let i = 0; i < waves.length; i++) {
         const wave = waves[i];
         ctx.beginPath();

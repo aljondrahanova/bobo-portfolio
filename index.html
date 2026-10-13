@@ -19,12 +19,13 @@
   <div class="page-container">
     <header class="header">
       <h1 class="header-title">boboti orlik klopa laki</h1>
+      <div class="match-banner" id="matchBanner" aria-live="polite">matched :3</div>
     </header>
 
     <main class="game-container">
       <div class="pexeso-grid" id="pexesoGrid">
         <!-- 4 karty pexesa uspořádané 2x2 -->
-        <div class="card" data-index="0" role="button" tabindex="0" aria-label="Karta 1">
+        <div class="card" data-index="0" data-pair="dog" role="button" tabindex="0" aria-label="Karta 1 - Dogs">
           <div class="card-inner">
             <div class="card-back">
               <div class="card-pattern">
@@ -32,12 +33,12 @@
               </div>
             </div>
             <div class="card-front">
-              <img src="assets/images/6653E145-74F9-42DA-8BE0-B043F9D90681.JPG" alt="Fotografie 1" loading="eager">
+              <img src="assets/images/6653E145-74F9-42DA-8BE0-B043F9D90681.JPG" alt="Dogs 1" loading="eager">
             </div>
           </div>
         </div>
 
-        <div class="card" data-index="1" role="button" tabindex="0" aria-label="Karta 2">
+        <div class="card" data-index="1" data-pair="cat" role="button" tabindex="0" aria-label="Karta 2 - Cat">
           <div class="card-inner">
             <div class="card-back">
               <div class="card-pattern">
@@ -45,12 +46,12 @@
               </div>
             </div>
             <div class="card-front">
-              <img src="assets/images/IMG_3046.jpeg" alt="Fotografie 2" loading="eager">
+              <img src="assets/images/IMG_3046.jpeg" alt="Cat 1" loading="eager">
             </div>
           </div>
         </div>
 
-        <div class="card" data-index="2" role="button" tabindex="0" aria-label="Karta 3">
+        <div class="card" data-index="2" data-pair="dog" role="button" tabindex="0" aria-label="Karta 3 - Dogs">
           <div class="card-inner">
             <div class="card-back">
               <div class="card-pattern">
@@ -58,12 +59,12 @@
               </div>
             </div>
             <div class="card-front">
-              <img src="assets/images/IMG_3128.jpeg" alt="Fotografie 3" loading="eager">
+              <img src="assets/images/IMG_3128.jpeg" alt="Dogs 2" loading="eager">
             </div>
           </div>
         </div>
 
-        <div class="card" data-index="3" role="button" tabindex="0" aria-label="Karta 4">
+        <div class="card" data-index="3" data-pair="cat" role="button" tabindex="0" aria-label="Karta 4 - Cat">
           <div class="card-inner">
             <div class="card-back">
               <div class="card-pattern">
@@ -71,10 +72,14 @@
               </div>
             </div>
             <div class="card-front">
-              <img src="assets/images/IMG_3249.jpeg" alt="Fotografie 4" loading="eager">
+              <img src="assets/images/IMG_3249.jpeg" alt="Cat 2" loading="eager">
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="reset-wrapper" id="resetWrapper">
+        <button id="resetBtn" class="reset-btn" type="button">↺ Hrát znovu</button>
       </div>
     </main>
   </div>
